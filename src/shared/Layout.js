@@ -1,4 +1,8 @@
 import React from 'react';
+import { Link, Switch, Route } from 'react-router-dom';
+import Home from '../client/Home';
+import About from '../client/About';
+import Contact from '../client/Contact';
 
 export default class Layout extends React.Component {
   constructor() {
