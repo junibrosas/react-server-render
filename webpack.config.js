@@ -1,59 +1,42 @@
+const dev = process.env.NODE_ENV !== 'production';
 const path = require('path');
-const autoprefixer = require('autoprefixer');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+
+const plugins = [new FriendlyErrorsWebpackPlugin()];
+
+if (!dev) {
+  plugins.push(
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: 'webpack-report.html',
+      openAnalyzer: false,
+    })
+  );
+}
 
 module.exports = {
-  entry: './src/client/index.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-    chunkFilename: '[id].js',
-    publicPath: '',
+  mode: dev ? 'development' : 'production',
+  context: path.join(__dirname, 'src'),
+  devtool: dev ? 'none' : 'source-map',
+  entry: {
+    app: './client/index.js',
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    modules: [path.resolve('./src'), 'node_modules'],
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[name]__[local]___[hash:base64:5]',
-              },
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins: () => [autoprefixer({})],
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(png|jpe?g|gif)$/,
-        loader: 'url-loader?limit=10000&name=img/[name].[ext]',
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: __dirname + '/index.html',
-      filename: 'index.html',
-      inject: 'body',
-    }),
-  ],
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].bundle.js',
+  },
+  plugins,
 };
