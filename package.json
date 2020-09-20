@@ -9,10 +9,12 @@
     "React",
     "Babel"
   ],
-  "main": "index.js",
+  "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --watch --progress & nodemon index.js"
+    "client": "webpack --progress ",
+    "server": "nodemon index.js",
+    "start": "npm run client && npm run server"
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",
@@ -27,6 +29,7 @@
     "file-loader": "^5.0.2",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
+    "nodemon": "^2.0.4",
     "postcss-loader": "^3.0.0",
     "style-loader": "^1.0.1",
     "url-loader": "^3.0.0",

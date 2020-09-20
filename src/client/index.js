@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import Layout from './App';
+import Layout from '../shared/Layout';
 
 const App = () => {
   return (
