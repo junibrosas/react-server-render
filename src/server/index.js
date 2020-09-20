@@ -5,6 +5,10 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Layout from '../shared/Layout';
 
+require('dotenv').config();
+
+const PORT = process.env.PORT || 3008;
+
 const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../dist')));
@@ -17,7 +21,9 @@ app.get('/*', (req, res) => {
   res.end(htmlTemplate(reactDom));
 });
 
-app.listen(2048);
+app.listen(PORT, () => {
+  console.warn(`Server is listening to port: ${PORT}`);
+});
 
 function htmlTemplate(reactDom) {
   return `
