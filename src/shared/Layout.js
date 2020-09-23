@@ -3,8 +3,9 @@ import { Link, Switch, Route } from 'react-router-dom';
 import Home from '../client/Home';
 import About from '../client/About';
 import Contact from '../client/Contact';
+import Secret from './Secret';
 
-export default class Layout extends React.Component {
+class Layout extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -25,8 +26,11 @@ export default class Layout extends React.Component {
           <Route path='/' exact component={Home} />
           <Route path='/about' exact component={About} />
           <Route path='/contact' exact component={Contact} />
+          <Route path='/secret' exact component={Secret} />
         </Switch>
       </div>
     );
   }
 }
+
+export default Layout;
