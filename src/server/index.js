@@ -6,7 +6,7 @@ import { StaticRouter } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
 
 import Layout from '../shared/Layout';
-import createStore, { initializeSession } from './store';
+import createStore, { initializeSession } from '../client/store';
 
 require('dotenv').config();
 
@@ -23,11 +23,11 @@ app.get('/*', (req, res) => {
   store.dispatch(initializeSession());
 
   const jsx = (
-    <ReduxProvider store={store}>
+    <Provider store={store}>
       <StaticRouter context={context} location={req.url}>
         <Layout />
       </StaticRouter>
-    </ReduxProvider>
+    </Provider>
   );
   const reactDom = renderToString(jsx);
   const reduxState = store.getState();
