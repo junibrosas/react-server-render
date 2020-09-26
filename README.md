@@ -10,3 +10,4 @@ Understand the different parts of server side rendering by going through each ta
 - [Adding React Router](https://github.com/junibrosas/react-server-render/tree/01-react-router)
 - [Adding Redux](https://github.com/junibrosas/react-server-render/tree/02-redux)
 - [Data Fetching](https://github.com/junibrosas/react-server-render/tree/03-data-fetching)
+- [Put React Helmet](https://github.com/junibrosas/react-server-render/tree/04-react-helmet)
