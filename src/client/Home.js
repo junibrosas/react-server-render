@@ -1,5 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Helmet from 'react-helmet';
+
 import { fetchData } from '../redux/action';
 
 const Home = () => {
@@ -14,6 +16,13 @@ const Home = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Home Page</title>
+        <meta
+          name='description'
+          content='This is a proof of concept for React SSR'
+        />
+      </Helmet>
       <h2>F1 2018 Season Calendar</h2>
       <ul>
         {circuits.map(({ circuitId, circuitName, Location }) => (
