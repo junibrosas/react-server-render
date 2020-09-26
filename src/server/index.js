@@ -1,6 +1,7 @@
 import React from 'react';
 import express from 'express';
 import path from 'path';
+import Helmet from 'react-helmet';
 import { Provider } from 'react-redux';
 import { StaticRouter, matchPath } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
@@ -40,9 +41,10 @@ app.get('/*', (req, res) => {
     );
     const reactDom = renderToString(jsx);
     const reduxState = store.getState();
+    const helmetData = Helmet.renderStatic();
 
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(htmlTemplate(reactDom, reduxState));
+    res.end(htmlTemplate(reactDom, reduxState, helmetData));
   });
 });
 
@@ -50,13 +52,14 @@ app.listen(PORT, () => {
   console.warn(`Server is listening to port: ${PORT}`);
 });
 
-function htmlTemplate(reactDom, reduxState) {
+function htmlTemplate(reactDom, reduxState, helmet) {
   return `
     <!DOCTYPE html>
     <html>
     <head>
       <meta charset="utf-8">
-      <title>React SSR</title>
+      ${helmet.title.toString()}
+      ${helmet.meta.toString()}
     </head>
     
     <body>
