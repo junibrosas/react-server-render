@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
-import Home from '../client/Home';
-import About from '../client/About';
-import Contact from '../client/Contact';
-import Secret from './Secret';
+import routes from './routes';
 
 class Layout extends React.Component {
   constructor() {
@@ -23,10 +20,9 @@ class Layout extends React.Component {
           <Link to='/contact'>Contact</Link>
         </div>
         <Switch>
-          <Route path='/' exact component={Home} />
-          <Route path='/about' exact component={About} />
-          <Route path='/contact' exact component={Contact} />
-          <Route path='/secret' exact component={Secret} />
+          {routes.map((route) => (
+            <Route key={route.path} {...route} />
+          ))}
         </Switch>
       </div>
     );
