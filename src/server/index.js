@@ -2,11 +2,12 @@ import React from 'react';
 import express from 'express';
 import path from 'path';
 import { Provider } from 'react-redux';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter, matchPath } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
 
 import Layout from '../shared/Layout';
 import createStore, { initializeSession } from '../client/store';
+import routes from '../shared/routes';
 
 require('dotenv').config();
 
@@ -22,18 +23,27 @@ app.get('/*', (req, res) => {
 
   store.dispatch(initializeSession());
 
-  const jsx = (
-    <Provider store={store}>
-      <StaticRouter context={context} location={req.url}>
-        <Layout />
-      </StaticRouter>
-    </Provider>
-  );
-  const reactDom = renderToString(jsx);
-  const reduxState = store.getState();
+  // dispatch any actions found in the component
+  const dataRequirements = routes
+    .filter((route) => matchPath(req.url, route)) // filter matching paths
+    .map((route) => route.component) // map to components
+    .filter((component) => component.requestInitialData) // check if components have data requirement
+    .map((component) => store.dispatch(component.requestInitialData())); // dispatch data requirement
 
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.end(htmlTemplate(reactDom, reduxState));
+  Promise.all(dataRequirements).then(() => {
+    const jsx = (
+      <Provider store={store}>
+        <StaticRouter context={context} location={req.url}>
+          <Layout />
+        </StaticRouter>
+      </Provider>
+    );
+    const reactDom = renderToString(jsx);
+    const reduxState = store.getState();
+
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(htmlTemplate(reactDom, reduxState));
+  });
 });
 
 app.listen(PORT, () => {
