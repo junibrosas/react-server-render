@@ -4,17 +4,17 @@ import { connect } from 'react-redux';
 
 const Header = ({ loggedIn }) => (
   <ul>
-    <li>
+    <li className='link'>
       <Link to='/'>Home</Link>
     </li>
-    <li>
+    <li className='link'>
       <Link to='/about'>About</Link>
     </li>
-    <li>
+    <li className='link'>
       <Link to='/contact'>Contact</Link>
     </li>
     {loggedIn && (
-      <li>
+      <li className='link'>
         <Link to='/secret'>Secret</Link>
       </li>
     )}

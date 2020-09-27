@@ -13,7 +13,7 @@ class Layout extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='wrapper'>
         <h1>{this.state.title}</h1>
         <Header />
         <Switch>

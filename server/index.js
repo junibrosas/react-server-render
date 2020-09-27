@@ -60,6 +60,7 @@ function htmlTemplate(reactDom, reduxState, helmet) {
       <meta charset="utf-8">
       ${helmet.title.toString()}
       ${helmet.meta.toString()}
+      <link rel="stylesheet" href="./styles.css"></link>
     </head>
     
     <body>

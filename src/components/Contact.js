@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 
 const Contact = () => {
   return (
-    <div>
+    <div className='wrapper'>
       <h2>This is the contact page</h2>
       <Helmet>
         <title>Contact Page</title>
