@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3008;
 
 const app = express();
 
-app.use(express.static(path.resolve(__dirname, '../../dist')));
+app.use(express.static(path.resolve(__dirname, '../dist')));
 
 app.get('/*', (req, res) => {
   const context = {};
@@ -60,6 +60,7 @@ function htmlTemplate(reactDom, reduxState, helmet) {
       <meta charset="utf-8">
       ${helmet.title.toString()}
       ${helmet.meta.toString()}
+      <link rel="stylesheet" href="./styles.css"></link>
     </head>
     
     <body>
