@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import { StaticRouter, matchPath } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
 
-import Layout from '../shared/Layout';
-import createStore, { initializeSession } from '../client/store';
-import routes from '../shared/routes';
+import Layout from '../src/components/Layout';
+import createStore, { initializeSession } from '../src/redux/store';
+import routes from '../src/routes';
 
 require('dotenv').config();
 

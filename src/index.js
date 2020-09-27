@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import Layout from '../shared/Layout';
-import createStore from './store';
+import Layout from './components/Layout';
+import createStore from './redux/store';
 
 const store = createStore(window.REDUX_DATA);
 
