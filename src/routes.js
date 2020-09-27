@@ -1,7 +1,7 @@
-import Home from '../client/Home';
-import About from '../client/About';
-import Contact from '../client/Contact';
-import Secret from '../client/Secret';
+import Home from './components/Home';
+import About from './components/About';
+import Contact from './components/Contact';
+import Secret from './components/Secret';
 
 export default [
   {
